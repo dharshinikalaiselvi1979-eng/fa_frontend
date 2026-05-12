@@ -13,6 +13,7 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
@@ -43,7 +44,7 @@ export default function Signup() {
     if (strength < 2) return toast.error("Password too weak");
     setLoading(true);
     try {
-      await register(name, email, pwd);
+      await register(name, email, pwd, phoneNumber);
       toast.success("Account created! Welcome 🎉");
       navigate("/");
     } catch (err) {
@@ -89,6 +90,16 @@ export default function Signup() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
+              className="mt-1"
+            />
+          </div>
+          <div>
+            <Label>Phone Number</Label>
+            <Input
+              type="tel"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              placeholder="+91 98765 43210"
               className="mt-1"
             />
           </div>

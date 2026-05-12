@@ -28,6 +28,7 @@ export default function Settings() {
   const navigate = useNavigate();
   const [name, setName] = useState(user.name || "");
   const [email, setEmail] = useState(user.email || "");
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber || "");
   const [currency, setCurrency] = useState("INR");
 
   return (
@@ -72,12 +73,21 @@ export default function Settings() {
                 className="mt-1"
               />
             </div>
+            <div>
+              <Label>Phone Number</Label>
+              <Input
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="mt-1"
+                placeholder="+91 98765 43210"
+              />
+            </div>
           </div>
           <Button
             className="mt-4 gradient-primary"
             onClick={async () => {
               try {
-                await setUser({ name, email });
+                await setUser({ name, email, phoneNumber });
                 toast.success("Profile updated successfully!");
               } catch (e) {
                 toast.error("Failed to update profile. Please try again.");

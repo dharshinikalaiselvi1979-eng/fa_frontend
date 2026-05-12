@@ -14,7 +14,7 @@ const exportCSV = async (req, res, next) => {
         { id: "date", title: "Date" },
         { id: "title", title: "Title" },
         { id: "category", title: "Category" },
-        { id: "amount", title: "Amount" },
+        { id: "amount", title: "Amount (₹)" },
         { id: "paymentMethod", title: "Payment Method" }
       ]
     });
@@ -57,12 +57,12 @@ const exportPDF = async (req, res, next) => {
 
     let total = 0;
     expenses.forEach(exp => {
-      doc.fontSize(12).text(`${exp.date.toISOString().split("T")[0]} | ${exp.category} | ${exp.title}: $${exp.amount}`);
+      doc.fontSize(12).text(`${exp.date.toISOString().split("T")[0]} | ${exp.category} | ${exp.title}: ₹${exp.amount}`);
       total += exp.amount;
     });
 
     doc.moveDown();
-    doc.fontSize(14).text(`Total Spending: $${total}`, { align: "right" });
+    doc.fontSize(14).text(`Total Spending: ₹${total}`, { align: "right" });
 
     doc.end();
   } catch (error) {

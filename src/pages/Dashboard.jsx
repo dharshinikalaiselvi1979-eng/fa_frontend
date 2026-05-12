@@ -143,12 +143,8 @@ export default function Dashboard() {
           icon={<Bot />}
           label="Ask AI"
         />
-        <QuickAction
-          onClick={() => navigate("/bank-connect")}
-          icon={<TrendingDown />}
-          label="Connect Bank"
-        />
       </div>
+
 
       {/* Charts row */}
       <div className="grid lg:grid-cols-3 gap-4 mb-6">

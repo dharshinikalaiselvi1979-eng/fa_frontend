@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
       setIsAuthed(true);
       return data;
     } catch (err) {
-      const msg = err.response?.data?.message || "Login failed. Check your credentials.";
+      const msg = err.response?.data?.message || err.message || "Login failed. Check your credentials.";
       throw new Error(msg);
     } finally {
       setLoading(false);
@@ -59,7 +59,7 @@ export function AuthProvider({ children }) {
       setIsAuthed(true);
       return data;
     } catch (err) {
-      const msg = err.response?.data?.message || "Registration failed. Try again.";
+      const msg = err.response?.data?.message || err.message || "Registration failed. Try again.";
       throw new Error(msg);
     } finally {
       setLoading(false);

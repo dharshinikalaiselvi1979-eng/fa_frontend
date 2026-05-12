@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5001/api",
+  baseURL: "https://fa-backend-xfja.onrender.com/api",
 });
 
 export default API;

@@ -13,7 +13,7 @@ const generateToken = (id) => {
 // @access  Public
 const registerUser = async (req, res, next) => {
   try {
-    const { name, email, password, monthlyIncome, savingsGoal, preferredCurrency, riskLevel } = req.body;
+    const { name, email, password, monthlyIncome, savingsGoal, preferredCurrency, riskLevel, phoneNumber } = req.body;
 
     if (!name || !email || !password) {
       res.status(400);
@@ -33,16 +33,18 @@ const registerUser = async (req, res, next) => {
       monthlyIncome,
       savingsGoal,
       preferredCurrency,
-      riskLevel
+      riskLevel,
+      phoneNumber
     });
 
     if (user) {
       res.status(201).json({
-        _id: user.id,
+        _id: user._id,
         name: user.name,
         email: user.email,
         monthlyIncome: user.monthlyIncome,
         savingsGoal: user.savingsGoal,
+        phoneNumber: user.phoneNumber,
         token: generateToken(user._id),
       });
     } else {
@@ -65,11 +67,12 @@ const loginUser = async (req, res, next) => {
 
     if (user && (await user.matchPassword(password))) {
       res.json({
-        _id: user.id,
+        _id: user._id,
         name: user.name,
         email: user.email,
         monthlyIncome: user.monthlyIncome,
         savingsGoal: user.savingsGoal,
+        phoneNumber: user.phoneNumber,
         token: generateToken(user._id),
       });
     } else {
@@ -104,6 +107,7 @@ const updateProfile = async (req, res, next) => {
       user.email = req.body.email || user.email;
       user.monthlyIncome = req.body.monthlyIncome || user.monthlyIncome;
       user.savingsGoal = req.body.savingsGoal || user.savingsGoal;
+      user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
 
       if (req.body.password) {
         user.password = req.body.password;

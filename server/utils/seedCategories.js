@@ -20,10 +20,6 @@ const defaultCategories = [
 
 const seedCategories = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-
-    console.log("Connected to MongoDB for Seeding...");
-
     for (const name of defaultCategories) {
       const exists = await Category.findOne({ name, isDefault: true });
       if (!exists) {
@@ -31,13 +27,10 @@ const seedCategories = async () => {
         console.log(`Created default category: ${name}`);
       }
     }
-
-    console.log("Seeding Completed.");
-    process.exit();
+    console.log("Category seeding checked.");
   } catch (error) {
     console.error(`Error with seeding: ${error.message}`);
-    process.exit(1);
   }
 };
 
-seedCategories();
+module.exports = seedCategories;

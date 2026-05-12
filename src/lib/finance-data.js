@@ -190,24 +190,3 @@ export const SEED_EXPENSES = [
     source: "manual",
   },
 ];
-
-export const BANK_TRANSACTIONS = {
-  SBI: [
-    { title: "Swiggy", amount: 450, category: "food" },
-    { title: "Uber", amount: 300, category: "travel" },
-    { title: "Amazon", amount: 1200, category: "shopping" },
-  ],
-  HDFC: [
-    { title: "Zomato", amount: 520, category: "food" },
-    { title: "BookMyShow", amount: 350, category: "entertainment" },
-    { title: "Flipkart", amount: 2299, category: "shopping" },
-  ],
-  ICICI: [
-    { title: "Ola", amount: 220, category: "travel" },
-    { title: "Pharmeasy", amount: 480, category: "health" },
-  ],
-  Axis: [
-    { title: "Electricity Bill", amount: 1340, category: "utilities" },
-    { title: "Coursera", amount: 999, category: "education" },
-  ],
-};

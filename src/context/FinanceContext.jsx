@@ -18,8 +18,8 @@ export function FinanceProvider({ children }) {
     return s ? JSON.parse(s) : [];
   });
   const [user, setUserLocal] = useState(() => {
-    const s = localStorage.getItem("fin.user");
-    return s ? JSON.parse(s) : { name: "Aarav Sharma", email: "aarav@finai.app" };
+    const s = localStorage.getItem("fin.authUser");
+    return s ? JSON.parse(s) : { name: "Aarav Sharma", email: "aarav@finai.app", phoneNumber: "" };
   });
   const [backendReady, setBackendReady] = useState(false);
 
@@ -27,7 +27,7 @@ export function FinanceProvider({ children }) {
   useEffect(() => localStorage.setItem("fin.expenses", JSON.stringify(expenses)), [expenses]);
   useEffect(() => localStorage.setItem("fin.budget", String(budget)), [budget]);
   useEffect(() => localStorage.setItem("fin.customCats", JSON.stringify(customCategories)), [customCategories]);
-  useEffect(() => localStorage.setItem("fin.user", JSON.stringify(user)), [user]);
+  useEffect(() => localStorage.setItem("fin.authUser", JSON.stringify(user)), [user]);
   // ── Sync from backend on mount ─────────────────────────────────
   useEffect(() => {
     const token = localStorage.getItem("fin.token");

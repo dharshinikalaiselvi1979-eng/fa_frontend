@@ -45,16 +45,17 @@ export const transformExpense = (exp) => ({
   paymentMethod: exp.paymentMethod || "Cash",
   recurring: exp.recurring || false,
   tags: exp.tags || [],
-  source: exp.tags && exp.tags.includes("auto-synced") ? "bank" : "manual",
+  source: "manual",
 });
 
 // ─── Auth Service ──────────────────────────────────────────────
 export const authService = {
-  register: async (name, email, password) => {
+  register: async (name, email, password, phoneNumber) => {
     const { data } = await apiClient.post("/auth/register", {
       name,
       email,
       password,
+      phoneNumber,
     });
     if (data.token) localStorage.setItem("fin.token", data.token);
     return data;

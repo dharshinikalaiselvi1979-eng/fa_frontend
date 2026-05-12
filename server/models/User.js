@@ -9,7 +9,8 @@ const userSchema = mongoose.Schema(
     monthlyIncome: { type: Number, default: 0 },
     savingsGoal: { type: Number, default: 0 },
     preferredCurrency: { type: String, default: "INR" },
-    riskLevel: { type: String, enum: ["Low", "Medium", "High"], default: "Medium" }
+    riskLevel: { type: String, enum: ["Low", "Medium", "High"], default: "Medium" },
+    phoneNumber: { type: String }
   },
   { timestamps: true }
 );

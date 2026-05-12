@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Central Axios instance — all requests go through this
 const apiClient = axios.create({
-  baseURL: "http://localhost:5001/api",
+  baseURL: import.meta.env.VITE_API_URL || "https://fa-backend-xfja.onrender.com/api",
   headers: { "Content-Type": "application/json" },
 });
 

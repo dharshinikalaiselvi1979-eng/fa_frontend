@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const initCronJobs = require("./services/cronJobs");
+const seedCategories = require("./utils/seedCategories");
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
@@ -24,7 +25,9 @@ app.use(cors());
 app.use(express.json());
 
 // Connect DB
-connectDB();
+connectDB().then(() => {
+  seedCategories();
+});
 
 // Init Cron Jobs
 initCronJobs();
