@@ -90,7 +90,7 @@ export default function Dashboard() {
   return (
     <div>
       <PageHeader
-        title={`Hi, ${user.name.split(" ")[0]} 👋`}
+        title={`Hi, ${user?.name?.split(" ")[0] || "User"} 👋`}
         subtitle="Here's your financial snapshot today."
       />
 

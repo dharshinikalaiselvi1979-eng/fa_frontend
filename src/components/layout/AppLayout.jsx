@@ -14,8 +14,8 @@ import DailyCheckIn from "@/components/DailyCheckIn";
 
 export default function AppLayout() {
   const { theme, toggle } = useTheme();
-  const { logout } = useAuth();
-  const { notifications, user } = useFinance();
+  const { user, logout } = useAuth();
+  const { notifications } = useFinance();
   const navigate = useNavigate();
   const unread = notifications.filter((n) => !n.read).length;
   const [chatOpen, setChatOpen]         = useState(false);
@@ -71,11 +71,13 @@ export default function AppLayout() {
               </Button>
               <Avatar className="h-8 w-8 ml-1">
                 <AvatarFallback className="gradient-primary text-white text-xs font-semibold">
-                  {user.name
-                    .split(" ")
-                    .map((s) => s[0])
-                    .slice(0, 2)
-                    .join("")}
+                  {user?.name
+                    ? user.name
+                        .split(" ")
+                        .map((s) => s[0])
+                        .slice(0, 2)
+                        .join("")
+                    : "U"}
                 </AvatarFallback>
               </Avatar>
             </div>
