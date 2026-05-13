@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
@@ -42,6 +43,15 @@ app.use("/api/ai", aiRoutes);
 app.use("/api/goals", goalRoutes);
 app.use("/api/export", exportRoutes);
 app.use("/api/notifications", notificationRoutes);
+
+app.get("/api/health", async (req, res) => {
+  const dbStatus = mongoose.connection.readyState === 1 ? "Connected" : "Disconnected";
+  res.json({
+    status: "OK",
+    database: dbStatus,
+    time: new Date().toISOString()
+  });
+});
 
 app.get("/", (req, res) => {
   res.send("FIN AI Backend Running 🚀 (Fully Featured & AI Powered)");
