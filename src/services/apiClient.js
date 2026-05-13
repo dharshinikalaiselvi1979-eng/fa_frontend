@@ -2,8 +2,9 @@ import axios from "axios";
 
 // Central Axios instance — all requests go through this
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "https://fa-backend-xfja.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_URL || "https://fa-backend.vercel.app/api",
   headers: { "Content-Type": "application/json" },
+  timeout: 8000, // 8 seconds timeout
 });
 
 // Auto-attach JWT token from localStorage to every request

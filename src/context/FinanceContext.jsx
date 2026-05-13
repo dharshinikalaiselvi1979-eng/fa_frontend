@@ -22,6 +22,7 @@ export function FinanceProvider({ children }) {
     return s ? JSON.parse(s) : { name: "Aarav Sharma", email: "aarav@finai.app", phoneNumber: "" };
   });
   const [backendReady, setBackendReady] = useState(false);
+  const [isOffline, setIsOffline] = useState(false);
 
   // ── Persist to localStorage ───────────────────────────────────
   useEffect(() => localStorage.setItem("fin.expenses", JSON.stringify(expenses)), [expenses]);
@@ -31,7 +32,10 @@ export function FinanceProvider({ children }) {
   // ── Sync from backend on mount ─────────────────────────────────
   useEffect(() => {
     const token = localStorage.getItem("fin.token");
-    if (!token) return;
+    if (!token) {
+      setIsOffline(true);
+      return;
+    }
 
     // Fetch budget and expenses simultaneously
     Promise.all([
@@ -53,8 +57,10 @@ export function FinanceProvider({ children }) {
         setBudgetLocal(0); // Ensure clean state
       }
       setBackendReady(true);
+      setIsOffline(false);
     }).catch(() => {
       setBackendReady(false);
+      setIsOffline(true);
     });
   }, []);
 
@@ -190,6 +196,7 @@ export function FinanceProvider({ children }) {
     user,
     setUser,
     backendReady,
+    isOffline,
   };
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
