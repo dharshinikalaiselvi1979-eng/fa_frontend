@@ -66,6 +66,23 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const updateProfile = useCallback(async (userData) => {
+    setLoading(true);
+    try {
+      const data = await authService.updateProfile(userData);
+      const updatedUser = { ...user, ...data };
+      localStorage.setItem("fin.authUser", JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      toast.success("Profile updated successfully");
+      return data;
+    } catch (err) {
+      toast.error("Failed to update profile");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
+
   const logout = useCallback(() => {
     authService.logout();
     localStorage.removeItem("fin.authUser");
@@ -75,7 +92,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <Ctx.Provider value={{ isAuthed, user, loading, login, register, logout }}>
+    <Ctx.Provider value={{ isAuthed, user, loading, login, register, logout, updateProfile }}>
       {children}
     </Ctx.Provider>
   );

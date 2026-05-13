@@ -30,10 +30,8 @@ import {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { expenses, budget, user: financeUser } = useFinance();
-  const { user: authUser } = useAuth();
-  // Prefer authenticated user's name (from JWT), fallback to FinanceContext
-  const user = authUser || financeUser;
+  const { expenses, budget } = useFinance();
+  const { user } = useAuth();
 
   const stats = useMemo(() => {
     const now = new Date();

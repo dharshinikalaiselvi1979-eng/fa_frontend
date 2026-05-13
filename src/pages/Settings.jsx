@@ -22,9 +22,8 @@ import { toast } from "sonner";
 import DailyReminderCard from "@/components/DailyReminderCard";
 
 export default function Settings() {
-  const { user, setUser } = useFinance();
   const { theme, toggle } = useTheme();
-  const { logout } = useAuth();
+  const { user, updateProfile, logout } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState(user.name || "");
   const [email, setEmail] = useState(user.email || "");
@@ -87,8 +86,7 @@ export default function Settings() {
             className="mt-4 gradient-primary"
             onClick={async () => {
               try {
-                await setUser({ name, email, phoneNumber });
-                toast.success("Profile updated successfully!");
+                await updateProfile({ name, email, phoneNumber });
               } catch (e) {
                 toast.error("Failed to update profile. Please try again.");
               }

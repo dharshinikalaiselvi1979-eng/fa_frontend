@@ -17,10 +17,6 @@ export function FinanceProvider({ children }) {
     const s = localStorage.getItem("fin.customCats");
     return s ? JSON.parse(s) : [];
   });
-  const [user, setUserLocal] = useState(() => {
-    const s = localStorage.getItem("fin.authUser");
-    return s ? JSON.parse(s) : { name: "Aarav Sharma", email: "aarav@finai.app", phoneNumber: "" };
-  });
   const [backendReady, setBackendReady] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
 
@@ -28,7 +24,6 @@ export function FinanceProvider({ children }) {
   useEffect(() => localStorage.setItem("fin.expenses", JSON.stringify(expenses)), [expenses]);
   useEffect(() => localStorage.setItem("fin.budget", String(budget)), [budget]);
   useEffect(() => localStorage.setItem("fin.customCats", JSON.stringify(customCategories)), [customCategories]);
-  useEffect(() => localStorage.setItem("fin.authUser", JSON.stringify(user)), [user]);
   // ── Sync from backend on mount ─────────────────────────────────
   useEffect(() => {
     const token = localStorage.getItem("fin.token");
@@ -167,19 +162,6 @@ export function FinanceProvider({ children }) {
   }, []);
 
 
-  // ── User profile ──────────────────────────────────────────────
-  const setUser = useCallback(async (u) => {
-    setUserLocal(u);
-    const token = localStorage.getItem("fin.token");
-    if (token) {
-      try {
-        await authService.updateProfile(u);
-      } catch (err) {
-        console.error("Failed to sync profile with backend", err);
-      }
-    }
-  }, []);
-
   const value = {
     expenses,
     addExpense,
@@ -193,8 +175,6 @@ export function FinanceProvider({ children }) {
     deleteCustomCategory: (k) => setCustomCategories((prev) => prev.filter((c) => c.key !== k)),
     notifications,
     markAllRead: () => {},
-    user,
-    setUser,
     backendReady,
     isOffline,
   };
